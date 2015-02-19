@@ -1,0 +1,18 @@
+#include "stdafx.h"
+#include "lab1_AP.cpp"
+#include <iostream>
+#include <conio.h>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	populateMatrix(1);
+	int **A= arr;
+	populateMatrix(3);
+	int **C= arr;
+	multiplication(2,3,A,3,2,C);
+	return 0;
+}
