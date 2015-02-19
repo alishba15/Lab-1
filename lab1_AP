@@ -1,0 +1,179 @@
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int **arr;
+void populateMatrix(int a)
+{
+	int row=0;
+	int column=0;
+	FILE *file;
+	file = fopen("matrices.txt","r");
+
+	char* strArray[40]; char* rowArray[10];char* columnArray[10];
+	int numberOfMatrices=0;
+	char buff[1000],*pch,*pch1,*pch2;
+	for( int j = 0; j <10; j++ )
+    {
+        strArray[j] = new char[40];
+    }
+
+	for( int j = 0; j < 10; j++ )
+    {
+        rowArray[j] = new char[10];
+    }
+
+	for( int j = 0; j <10; j++ )
+    {
+        columnArray[j] = new char[10];
+    }
+
+	while (fgets(buff,1000, file) != NULL)
+	{
+		pch = strtok (buff,"\n");
+			while (pch != NULL)
+			{
+				strcpy(strArray[numberOfMatrices], pch);
+				pch = strtok (NULL,"\n");
+				numberOfMatrices++;
+			}
+	}
+
+	pch1 = strtok (strArray[a],";");
+		while (pch1 != NULL)
+		{
+			strcpy(rowArray[row], pch1);
+	
+			pch1 = strtok (NULL,";");
+			row++;
+		}
+	
+	arr = new int*[10];
+	for(int k=0; k< row; k++)
+	{
+		arr[k] = new int[10];
+	}
+	for(int u=0; u<row; u++)
+	{
+		column=0;
+		pch2 = strtok (rowArray[u]," ");
+		int q=0;
+		while (pch2 != NULL)
+		{
+			q = atoi(pch2);
+			pch2 = strtok (NULL," ");
+			arr[u][column]= q;
+		
+			column++;
+		}
+
+	}
+}
+
+int addition(int a, int b, int **A,int a1, int b1, int **B)
+{
+	int c,d;
+	int sum[10][10];
+	if( a==a1 & b==b1)
+	{
+	for ( c = 0 ; c < a ; c++ )
+      for ( d = 0 ; d < b ; d++ )
+         sum[c][d] = A[c][d] + B[c][d];
+ 
+   printf("Sum of entered matrices:-\n");
+ 
+   for ( c = 0 ; c < a ; c++ )
+   {
+      for ( d = 0 ; d < b ; d++ )
+         printf("%d\t", sum[c][d]);
+ 
+      printf("\n");
+   }
+	}
+	else 
+	{
+		printf("Addition is not possible");
+	}
+
+ _getch();
+
+
+	return 0;
+}
+
+int subtraction(int a, int b, int **A,int a1, int b1, int **B)
+{
+	int c,d;
+	int difference[10][10];
+	if( a  == a1 && b == b1)
+	{
+	  for ( c = 0 ; c < a ; c++ )
+		for ( d = 0 ; d < b ; d++ )
+         difference[c][d] = A[c][d] - B[c][d];
+ 
+   printf("Difference of entered matrices:-\n");
+ 
+   for ( c = 0 ; c < a ; c++ )
+   {
+      for ( d = 0 ; d < b ; d++ )
+         printf("%d\t", difference[c][d]);
+ 
+      printf("\n");
+   }
+	}
+	else 
+	{
+		printf("Subtraction os not possible");
+	}
+
+ _getch();
+
+
+	return 0;
+}
+
+int multiplication(int x, int y,int **A, int m,int n,int **C)
+{
+	int c[10][10];
+	int i, j;
+
+	if (y == m)
+	{
+		for (i = 0; i<x; i++)
+		{
+			for (j = 0; j<n; j++)
+			{
+				c[i][j] = 0;
+				for (int k = 0; k<m; k++)
+				{
+					c[i][j] = c[i][j] + A[i][k] * C[k][j];
+				}
+			}
+		}
+
+		printf("\n---------------------------------------\n");
+
+		printf("\n\nMultiplication of Matrix A and Matrix B :\n\n");
+
+		for (i = 0; i<x; i++)
+		{
+			for (j = 0; j<n; j++)
+			{
+				printf("%d \t" ,c[i][j]);
+			}
+			printf("\n\n");
+		}
+	}
+	else
+	{
+		printf("\n\nMultiplication is not possible");
+	}
+
+	_getch();
+	return 0;
+}
+
